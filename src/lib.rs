@@ -88,7 +88,7 @@ impl<T> VecList<T> {
     pub fn get(&self, index: usize) -> Option<&T> {
         self.data.get(index).and_then(|node| match *node {
             Node::Vacant(_) => None,
-            Node::Occupied(ref value) => Some(value)
+            Node::Occupied(ref value) => Some(value),
         })
     }
 
@@ -96,7 +96,7 @@ impl<T> VecList<T> {
     pub fn get_mut(&mut self, index: usize) -> Option<&mut T> {
         self.data.get_mut(index).and_then(|node| match *node {
             Node::Vacant(_) => None,
-            Node::Occupied(ref mut value) => Some(value)
+            Node::Occupied(ref mut value) => Some(value),
         })
     }
 }
@@ -159,7 +159,7 @@ mod tests {
 
         for i in 0..5 {
             // reused in LIFO manner
-            assert_eq!(veclist.get(i), Some(&(14-i)));
+            assert_eq!(veclist.get(i), Some(&(14 - i)));
         }
     }
 }
