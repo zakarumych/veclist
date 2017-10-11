@@ -1,6 +1,6 @@
 [package]
 name = "veclist"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["omni-viral <scareaangel@gmail.com>"]
 
 description = "This library contains single simple collection. It can be used to push, access and pop with `O(1)` complexity"

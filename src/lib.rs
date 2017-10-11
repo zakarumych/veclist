@@ -1,4 +1,5 @@
 use std::mem::replace;
+use std::ops::{Index, IndexMut};
 
 /// Node of the list
 #[derive(Clone, Debug)]
@@ -113,7 +114,18 @@ impl<T> VecList<T> {
     }
 }
 
+impl<T> Index<usize> for VecList<T> {
+    type Output = T;
+    fn index(&self, index: usize) -> &T {
+        self.get(index).expect("Expect occupied")
+    }
+}
 
+impl<T> IndexMut<usize> for VecList<T> {
+    fn index_mut(&mut self, index: usize) -> &mut T {
+        self.get_mut(index).expect("Expect occupied")
+    }
+}
 
 #[cfg(test)]
 mod tests {
@@ -149,7 +161,7 @@ mod tests {
         }
 
         for i in 6..10 {
-            assert_eq!(veclist.get(i), Some(&i));
+            assert_eq!(veclist[i], i);
         }
     }
 
@@ -171,7 +183,7 @@ mod tests {
 
         for i in 0..5 {
             // reused in LIFO manner
-            assert_eq!(veclist.get(i), Some(&(14 - i)));
+            assert_eq!(veclist[i], 14 - i);
         }
     }
 }
