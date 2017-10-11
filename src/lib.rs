@@ -2,7 +2,7 @@ use std::mem::replace;
 
 /// Node of the list
 #[derive(Clone, Debug)]
-pub enum Node<T> {
+enum Node<T> {
     Vacant(Option<usize>),
     Occupied(T),
 }
@@ -48,15 +48,22 @@ impl<T> Default for VecList<T> {
 }
 
 impl<T> VecList<T> {
-    fn new() -> Self {
+    /// Create new empty `VecList`
+    pub fn new() -> Self {
         VecList {
             free: None,
             data: Vec::new(),
         }
     }
-}
 
-impl<T> VecList<T> {
+    /// Create new `VecList` with specified capacity
+    pub fn with_capacity(cap: usize) -> Self {
+        VecList {
+            free: None,
+            data: Vec::with_capacity(cap),
+        }
+    }
+
     /// Push new value into `VecList` returning index
     /// where value is placed.
     pub fn push(&mut self, value: T) -> usize {
@@ -98,6 +105,11 @@ impl<T> VecList<T> {
             Node::Vacant(_) => None,
             Node::Occupied(ref mut value) => Some(value),
         })
+    }
+
+    /// Get upper bound (exclusive) of occupied incides
+    pub fn upper_bound(&self) -> usize {
+        self.data.len()
     }
 }
 
